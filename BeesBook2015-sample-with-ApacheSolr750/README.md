@@ -667,7 +667,7 @@ curl --data-urlencode 'expr=
 
 Via the streaming expression above we have (with one `/stream` request in about two seconds) found the four bees not seen for (at least) the 20 minutes around noon on 2015-09-08 but previously and subsequently seen around midnight.
 
-Streaming expressions are specific to Solr Cloud. Here's another, more manual approach of searching for the same thing with multiple queries in a shell script.
+Streaming expressions are specific to Solr Cloud. Here's another, more manual approach of searching for the same thing with multiple queries in a [mid-day-bees.sh](mid-day-bees.sh) shell script.
 
 ```
 $ ./mid-day-bees.sh
