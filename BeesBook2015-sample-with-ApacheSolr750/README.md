@@ -756,6 +756,7 @@ curl "http://localhost:8983/solr/bee-hive/select?fq=bee_id_i:(104+2483+3406+3477
       bee_id_confidence_quartiles : {
         type : range,
         field : bee_id_confidence_f,
+        include : edge,
         gap : "0.25",
         start : "0.0",
         end   : "1.0",
@@ -785,7 +786,7 @@ curl "http://localhost:8983/solr/bee-hive/select?fq=bee_id_i:(104+2483+3406+3477
                 "count":3394},
               {
                 "val":0.75,
-                "count":56726}]}},
+                "count":362590}]}},
         {
           "val":3406,
           "count":350665,
@@ -801,7 +802,7 @@ curl "http://localhost:8983/solr/bee-hive/select?fq=bee_id_i:(104+2483+3406+3477
                 "count":11510},
               {
                 "val":0.75,
-                "count":63448}]}},
+                "count":320623}]}},
         {
           "val":2483,
           "count":307759,
@@ -817,7 +818,7 @@ curl "http://localhost:8983/solr/bee-hive/select?fq=bee_id_i:(104+2483+3406+3477
                 "count":609},
               {
                 "val":0.75,
-                "count":58964}]}},
+                "count":299211}]}},
         {
           "val":3477,
           "count":1866,
