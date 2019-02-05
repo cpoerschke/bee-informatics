@@ -5,6 +5,7 @@ Once you've kept and learnt about honeybees for a few years and if you've profes
 ## Contents
 
 * [Exploring the BeesBook 2015 dataset sample with Apache Solr 7.5](BeesBook2015-sample-with-ApacheSolr750/README.md)
+* [Bedtime for bees is when?](bedtime-for-bees/README.md)
 
 ## About me
 
