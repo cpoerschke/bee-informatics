@@ -1,0 +1,149 @@
+--- a/BeesBook2015-sample-with-ApacheSolr750/facet-range.py
++++ b/BeesBook2015-sample-with-ApacheSolr750/facet-range.py
+@@ -25,7 +25,7 @@ def open_url(url):
+ def counts_arr(response, fieldName):
+   return response.get('facet_counts',{}).get('facet_ranges',{}).get(fieldName,{}).get('counts',[])
+ 
+-def plot_counts(fileName, url, counts, xtick=60):
++def plot_counts(fileName, url, counts, dots_per_inch, xtick=60):
+   vals = []
+   for ii in range(0,len(counts)):
+     if ii%2 == 1:
+@@ -39,9 +39,9 @@ def plot_counts(fileName, url, counts, xtick=60):
+     x_widths.append(1)
+     y_heights.append(1 if vals[ii] else 0)
+ 
+-  fig = plt.figure()
++  fig = plt.figure(dpi=dots_per_inch)
+ 
+-  ax = fig.add_axes((0, 0, 1.0, 1.0))
++  ax = fig.add_axes((0, 0, 1.0, 1.0), frameon=False)
+   ax.set_xticks(range(0, len(vals)+xtick, xtick))
+   ax.set_yticks([0,1])
+   ax.set_xlim((-len(vals)/10,11*len(vals)/10))
+@@ -50,7 +50,7 @@ def plot_counts(fileName, url, counts, xtick=60):
+ 
+   fig.text(1.0/12, 2.0/3, url.replace('&','\n&'))
+ 
+-  plt.savefig(fileName)
++  plt.savefig(fileName, dpi=dots_per_inch)
+ 
+ if __name__ == '__main__':
+ 
+@@ -73,6 +73,8 @@ if __name__ == '__main__':
+   parser.add_argument('--facet-range-end', type=str, default='2015-09-30T23:59:59.999Z', help='facet.range.end value')
+   parser.add_argument('--facet-range-gap', type=str, default='%2B1MINUTE', help='facet.range.gap value')
+ 
++  parser.add_argument("--dots-per-inch", type=int, default=100)
++
+   args = parser.parse_args()
+   if args.verbose:
+     print(args)
+@@ -89,5 +91,5 @@ if __name__ == '__main__':
+   if args.verbose:
+     print(vals)
+ 
+-  plot_counts(args.png_output_file_name, url, vals)
++  plot_counts(args.png_output_file_name, url, vals, args.dots_per_inch)
+ 
+--- a/bedtime-for-bees/bee-step-stats-sum.sh
++++ b/bedtime-for-bees/bee-step-stats-sum.sh
+@@ -91,13 +91,15 @@ ${q}"
+         ;;
+     esac
+ 
+-    png_file="./bee-${who}-step-stats-sum-${yyyymmdd}.png"
++    png_file="../apimondia-2019/bee-${who}-step-stats-sum-${yyyymmdd}.png"
++
+     echo_img_html_f $png_file
+ 
+     ./bee-step-stats.py ${png_file} "${q}" \
+     "${pos_delta_field}:[0+TO+*]" \
+     --timestamp-range-start "${yyyymmdd}T00:00:00.000Z" \
+     --timestamp-range-end   "${yyyymmdd}T23:59:59.999Z" \
++    --dots-per-inch 1200 \
+     --plot-axis -1 25 -1 ${y_axis} \
+     --plot-title "${yyyymmdd} sum(${pos_delta_field})
+ ${q}"
+--- a/bedtime-for-bees/bee-step-stats.py
++++ b/bedtime-for-bees/bee-step-stats.py
+@@ -155,7 +155,7 @@ def plot_vals_map(args, vals_map):
+     plt.axis(args.plot_axis)
+ 
+   if 0 < num_plot_lines:
+-    plt.savefig(args.png_output_file_name)
++    plt.savefig(args.png_output_file_name, dpi=args.dots_per_inch)
+     return args.png_output_file_name
+   else:
+     print("Found no {0} data.".format(sorted(vals_map.keys())))
+@@ -195,6 +195,8 @@ if __name__ == '__main__':
+ 
+   parser.add_argument('--plot-y-multiplier', type=float, default=None)
+ 
++  parser.add_argument("--dots-per-inch", type=int, default=100)
++
+   args = parser.parse_args()
+   if args.verbose:
+     print(args)
+--- a/bee-animations/animate-bees.py
++++ b/bee-animations/animate-bees.py
+@@ -73,7 +73,7 @@ def animate_bees(args):
+ 
+   bee_id_2_focal_bee_meeting_count = {}
+ 
+-  fig = pyplot.figure()
++  fig = pyplot.figure(dpi=args.dots_per_inch)
+ 
+   if args.title != None:
+     fig.suptitle(args.title)
+@@ -87,6 +87,8 @@ def animate_bees(args):
+       horizontalalignment="center"
+     )
+ 
++  frame_count = 0
++
+   writer = animation.writers["ffmpeg"](fps=args.frames_per_second)
+   with writer.saving(fig, args.output_file_name, dpi=args.dots_per_inch):
+ 
+@@ -199,6 +201,9 @@ def animate_bees(args):
+       if (args.frame_timestamp_min == None or args.frame_timestamp_min <= timestamp) and \
+          (args.frame_timestamp_max == None or args.frame_timestamp_max >= timestamp):
+         writer.grab_frame()
++        frame_count += 1
++        if frame_count in args.frames_of_interest:
++          pyplot.savefig(args.frame_output_file_name_pattern.format(frame_count), dpi=args.dots_per_inch)
+ 
+       for element in elements:
+         element.remove()
+@@ -221,6 +226,9 @@ def create_parser():
+   parser.add_argument("--frame-timestamp-min", type=str, default=None)
+   parser.add_argument("--frame-timestamp-max", type=str, default=None)
+ 
++  parser.add_argument("--frames-of-interest", type=int, nargs="*", default=[])
++  parser.add_argument("--frame-output-file-name-pattern", type=str)
++
+   parser.add_argument("--input-timestamp-format", type=str, default="%Y-%m-%d %H:%M:%S.%f+00", help="format of the timestamps in the input file")
+   parser.add_argument("--output-timestamp-format", type=str, default="%Y-%m-%d %H:%M:%S.%f", help="format for the timestamps in the output animation")
+ 
+--- a/bee-animations/process-input-files.sh
++++ b/bee-animations/process-input-files.sh
+@@ -40,7 +40,8 @@ else
+   --focal-bee-id 3258
+ fi
+ 
+-mp4_file=./animate-bees-5x-trailer.mp4
++mp4_file_stem=../apimondia-2019/animate-bees-5x-trailer
++mp4_file=${mp4_file_stem}.mp4
+ if [[ -e ${mp4_file} ]]
+ then
+   echo "${mp4_file} already exists."
+@@ -49,6 +50,9 @@ else
+   --title '"Hello Bee 3258!" (5x time-lapse)' \
+   --frame-timestamp-min "2015-09-08 12:03:30" \
+   --frame-timestamp-max "2015-09-08 12:08:30" \
++  --frames-of-interest 1 900 \
++  --frame-output-file-name-pattern "${mp4_file_stem}-frame-{0}.png" \
++  --dots-per-inch 1200 \
+   --progress-report-interval 900 \
+   --annotation "${animation_annotation}" --cam-id 1 \
+   --focal-bee-id 3258 --focal-bee-meet-radius 166 \
