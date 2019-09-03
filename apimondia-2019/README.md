@@ -1,6 +1,6 @@
 # Apimondia 2019
 
-[This is a poster .pdf file placeholder link.](apimondia-2019-christine-poerschke.pdf)
+Here's a .pdf file of my [Citizen Science with Open Data and Open Source Software: A Case Study](apimondia-2019-christine-poerschke.pdf) poster.
 
 ## Appendix
 
