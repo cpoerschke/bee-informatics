@@ -8,6 +8,7 @@ Once you've kept and learnt about honeybees for a few years and if you've profes
 * [Bedtime for bees is when?](bedtime-for-bees/README.md)
 * [Animating bees with Python and Matplotlib](bee-animations/README.md)
 * [Apimondia 2019](https://www.apimondia2019.com) poster presentation: [Citizen Science with Open Data and Open Source Software: A Case Study](apimondia-2019/apimondia-2019-christine-poerschke.pdf)
+* [Background subtraction with bees](bg-sub/README.md)
 
 ## About me
 
