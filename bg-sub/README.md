@@ -34,8 +34,8 @@ In the selected ~30 seconds video sequence we have:
 Each image is divided into two halves: the top showing the original image and the bottom showing only the foreground as detected via the default `cv::BackgroundSubtractorKNN` and `cv::BackgroundSubtractorMOG2` algorithms. The algorithms were run at the original 1920x1088 pixels resolution but final frames have been scaled to 720x720 resolution to limit file sizes.
 
 ### Video sequences
-* [VID_20220101_145249-knn-background-3109-to-3399.mp4](./VID_20220101_145249-knn-background-3109-to-3399.mp4)
-* [VID_20220101_145249-mog2-background-3109-to-3399.mp4](./VID_20220101_145249-mog2-background-3109-to-3399.mp4)
+* [VID_20220101_145249-knn-background-3109-to-3399.mp4](./VID_20220101_145249-knn-background-3109-to-3399.mp4?raw=true)
+* [VID_20220101_145249-mog2-background-3109-to-3399.mp4](./VID_20220101_145249-mog2-background-3109-to-3399.mp4?raw=true)
 
 ### Sample images
 
