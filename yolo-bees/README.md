@@ -5,7 +5,7 @@ In this article I'd like to learn about the YOLO (You Only Look Once) object det
 
 ## Neural networks, YOLO, OpenCV
 
-* Neural networks as a computer science [concept|https://en.wikipedia.org/wiki/Artificial_neural_network] have been around for decades. In more recent years, advances in computing power and the availability of big amounts of data have enabled many practical applications of neural networks.
+* Neural networks as a computer science [concept](https://en.wikipedia.org/wiki/Artificial_neural_network) have been around for decades. In more recent years, advances in computing power and the availability of big amounts of data have enabled many practical applications of neural networks.
 
 * YOLO is an approach where a single neural network performs object detection directly on the image and in one evaluation i.e. You Only Look Once.
 
