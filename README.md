@@ -10,6 +10,7 @@ Once you've kept and learnt about honeybees for a few years and if you've profes
 * [Apimondia 2019](https://www.apimondia2019.com) poster presentation: [Citizen Science with Open Data and Open Source Software: A Case Study](apimondia-2019/apimondia-2019-christine-poerschke.pdf)
 * [Background subtraction with bees](bg-sub/README.md)
 * [YOLO with bees](yolo-bees/README.md)
+* [Intelligent scissors and 256 shades of bee](shades-of-bee/README.md)
 
 ## About me
 
