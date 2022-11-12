@@ -11,6 +11,7 @@ Once you've kept and learnt about honeybees for a few years and if you've profes
 * [Background subtraction with bees](bg-sub/README.md)
 * [YOLO with bees](yolo-bees/README.md)
 * [Intelligent scissors and 256 shades of bee](shades-of-bee/README.md)
+* [Exploring BeeWalk data with Python Pandas](bee-walk/BeeWalkPandas.ipynb)
 
 ## About me
 
